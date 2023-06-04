@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 
 function NewTaskForm({ onTaskFormSubmit, categories }) {
-  const [newItemFields, setNewItemFields] = useState({
+  const [newTaskFields, setNewTaskFields] = useState({
     text: "",
     category: "Code",
   });
 
-  function handleFields(e) {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewItemFields({ ...newItemFields, [name]: value });
+    setNewTaskFields({ ...newTaskFields, [name]: value });
   }
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onTaskFormSubmit(newItemFields);
+        onTaskFormSubmit(newTaskFields);
       }}
       className="new-task-form"
     >
       <label>
         Details
         <input
-          value={newItemFields.text}
-          onChange={handleFields}
+          value={newTaskFields.text}
+          onChange={handleInputChange}
           type="text"
           name="text"
         />
@@ -32,12 +32,12 @@ function NewTaskForm({ onTaskFormSubmit, categories }) {
       <label>
         Category
         <select
-          value={newItemFields.category}
-          onChange={handleFields}
+          value={newTaskFields.category}
+          onChange={handleInputChange}
           name="category"
         >
           {categories.map((category, index) => (
-            <option key={index}>{category}</option>
+            category !== "All" && <option key={index}>{category}</option>
           ))}
         </select>
       </label>
